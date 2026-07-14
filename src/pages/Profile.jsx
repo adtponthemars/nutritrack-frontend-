@@ -8,13 +8,14 @@ const Profile = ({ user }) => {
   const [profile, setProfile] = useState(null);
   const [editing, setEditing] = useState(false);
   const navigate = useNavigate();
+  const API_URL = import.meta.env.VITE_SERVER_API;
 
   // Fetch user details from backend
   useEffect(() => {
     const fetchProfile = async () => {
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/user-data/user/${user.uid}`
+          `${API_URL}/api/user-data/user/${user.uid}`
         );
         setProfile(res.data);
       } catch (err) {
@@ -33,7 +34,7 @@ const Profile = ({ user }) => {
   const handleSave = async () => {
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/user-data/user/${user.uid}`,
+        `${API_URL}/api/user-data/user/${user.uid}`,
         profile
       );
       setProfile(res.data);

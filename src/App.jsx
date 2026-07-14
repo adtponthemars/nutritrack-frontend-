@@ -24,7 +24,7 @@ import AuthChoice from "./pages/AuthChoice";
 
 function AuthWatcher({ setUser, setAuthLoading, setProfileExists }) {
   const navigate = useNavigate();
-  const location = useLocation();
+  const location = useLocation(); 
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
@@ -40,10 +40,9 @@ function AuthWatcher({ setUser, setAuthLoading, setProfileExists }) {
         }
         return;
       }
-
       try {
         const res = await axios.get(
-          `http://localhost:5000/api/user-data/${currentUser.uid}`
+          `${import.meta.env.VITE_SERVER_API}/user-data/${currentUser.uid}`
         );
 
         if (res.data.exists) {

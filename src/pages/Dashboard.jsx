@@ -12,7 +12,7 @@ const Dashboard = ({ user }) => {
   useEffect(() => {
     const fetchDailySummary = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/api/summary/${user.uid}`);
+        const res = await axios.get(`${import.meta.env.VITE_SERVER_API}/api/summary/${user.uid}`);
         setSummary(res.data);
         console.log(res.data)
       } catch (err) {

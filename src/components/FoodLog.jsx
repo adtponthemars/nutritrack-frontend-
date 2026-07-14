@@ -21,7 +21,7 @@ function FoodSearch({ user, onFoodLogged }) {
   const [loading, setLoading] = useState(false);
   const [toast, setToast] = useState("");
   const [error, setError] = useState("");
-
+  const API_URL= import.meta.env.VITE_SERVER_API;
   const showToast = (msg) => {
     setToast(msg);
     setTimeout(() => setToast(""), 2500);
@@ -38,7 +38,7 @@ function FoodSearch({ user, onFoodLogged }) {
 
     try {
       const res = await axios.get(
-        "http://localhost:5000/api/foodlog",
+        `${API_URL}/api/foodlog`,
         { params: { query } }
       );
 
@@ -81,7 +81,7 @@ function FoodSearch({ user, onFoodLogged }) {
     };
 
     try {
-      const res = await axios.post("http://localhost:5000/api/foodlog", foodLogData);
+      const res = await axios.post(`${API_URL}/api/foodlog`, foodLogData);
 
       if (res.status === 201) {
         showToast("Food logged successfully!");

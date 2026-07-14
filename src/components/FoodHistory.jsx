@@ -11,7 +11,7 @@ const FoodHistory = ({user}) => {
     const fetchFoodLogs = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:5000/api/foodlog/user/${user.uid}?date=${today}`
+          `${import.meta.env.VITE_SERVER_API}/api/foodlog/user/${user.uid}?date=${today}`
         );
         setFoodLogs(response.data.data);
       } catch (err) {

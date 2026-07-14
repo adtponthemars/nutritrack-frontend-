@@ -10,7 +10,7 @@ export default function FoodRecommendationPage({user}) {
 
   const fetchRecommendations = async () => {
     try {
-      const res = await axios.post("http://localhost:5000/api/recommend-foods", {
+      const res = await axios.post(`${import.meta.env.VITE_SERVER_API}/api/recommend-foods`, {
         userId,
         filterType,
         foodCategory,

@@ -55,7 +55,7 @@ export default function Form({ user }) {
     try {
       const token = await auth.currentUser.getIdToken();
 
-      await axios.post("http://localhost:5000/api/user-data", payload, {
+      await axios.post(`${import.meta.env.VITE_SERVER_API}/api/user-data`, payload, {
         headers: { Authorization: `Bearer ${token}` },
       });
 
