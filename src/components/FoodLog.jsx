@@ -95,16 +95,16 @@ function FoodSearch({ user, onFoodLogged }) {
   };
 
   return (
-    <div className="min-h-screen flex justify-around p-15 bg-white">
-      <div className="w-2/6  border-green-100">
-        <h2 className="text-4xl font-bold text-green-700 text-center mb-4">
+    <div className="min-h-screen w-full flex justify-around py-6 px-7 md:p-15 bg-white">
+      <div className="w-full md:w-2/6  border-green-100 ">
+        <h2 className=" text-2xl md:text-4xl font-bold text-green-700 text-center mb-4">
           🥗 Nutrition Finder
         </h2>
 
         {/* Food Search */}
         <input
           type="text"
-          className="w-full border border-gray-300 rounded-xl px-4 py-2 mb-3 focus:ring-2 focus:ring-green-500"
+          className="w-full border border-gray-300 rounded-xl md:px-4 py-2 mb-3 focus:ring-2 focus:ring-green-500"
           placeholder="Search for a food (e.g., Apple)"
           value={query}
           onChange={(e) => setQuery(e.target.value)}

@@ -64,23 +64,23 @@ const Dashboard = ({ user }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#E8FFD7] to-[#BBC863] flex flex-col  py-5 px-9">
+    <div className="max-w-full h-screen bg-gradient-to-br from-[#E8FFD7] to-[#BBC863] py-5 px-5 md:px-12 lg:px-16">
       {/* HEADER  */}
-      <div className="w-[100%] flex justify-between ">
+      <div className="flex justify-between items-center ">
         <h1>Dashboard</h1>
-        <div><img
+        <div className="hidden md:block"><img
           src={user?.photoURL}
           alt="User avatar"
-          className="w-14 h-14 rounded-full border-2 border-green-500 shadow-md"
+          className="size-16 rounded-full border-2 border-green-500 shadow-md"
         /></div>
       </div>
       <div>
-        <div className="font-bold text-4xl">Hi, {user?.displayName}!</div>
+        <div className="font-bold text-3xl md:text-3xl lg:text-4xl mt-3">Hi, {user?.displayName}!</div>
       </div>
       {/* DASHBOARD  */}
-      <div className="flex justify-between items-center">
+      <div className="flex flex-col gap-10 md:flex-row md:justify-between md:items-center">
         {/* ----------LINEAR PROGRESS BAR--------------- */}
-        <div className="w-3xl">
+        <div className="max-w-3xl md:w-3xl inline order-1 ">
           {nutrients.map((nutrient) => (
             <div key={nutrient.label} className="p-2">
               <div className="flex justify-between mb-1">
@@ -92,7 +92,7 @@ const Dashboard = ({ user }) => {
 
               <div className="w-full bg-white rounded-full h-5 overflow-hidden">
                 <div
-                  className="h-5 bg-amber-300 rounded-full transition-all duration-300"
+                  className="h-5  rounded-full transition-all duration-300"
                   style={{ width: `${getPercent(nutrient.consumed, nutrient.required)}%` }}
                 ></div>
               </div>
@@ -100,7 +100,7 @@ const Dashboard = ({ user }) => {
           ))}
         </div>
         {/*------------CIRCULAR BAR------------ */}
-        <div className="flex flex-col w-[30%] py-10 rounded-2xl  bg-amber-300 items-center space-y-3">
+        <div className="flex order-2 flex-col mx-auto min-w-[280px] max-w-[90%] md:w-[40%] lg:w-[30%] justify-center  py-10 rounded-2xl  bg-amber-300 items-center space-y-3">
           <p className="font-semibold text-lg mb-6">Daily Progress</p>
           <div className="relative w-40 h-40">
             <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
@@ -134,19 +134,20 @@ const Dashboard = ({ user }) => {
           </div>
         </div>
       </div>
+      <div className="flex flex-col items-center justify-center md:block">
       <button
         onClick={() => navigate("/foodsearch")}
-        className="mt-6 w-45 bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl shadow-md font-semibold transition"
+        className="mt-6 w-45  bg-green-500 hover:bg-green-600 text-white px-6 py-3 rounded-xl shadow-md font-semibold transition"
       >
-        Add Food Log
+        Add Food 
       </button>
       <div className="mt-4 p-2">
         
-        <div>
+        
           <FoodHistory user={user}/>
-        </div>
+        
       </div>
-
+</div>
     </div>
   );
 };

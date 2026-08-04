@@ -3,6 +3,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { signOut } from "firebase/auth";
 import { auth } from "../firebase";
+import { Pencil, LogOut } from 'lucide-react';
 
 const Profile = ({ user }) => {
   const [profile, setProfile] = useState(null);
@@ -53,154 +54,163 @@ const Profile = ({ user }) => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#E8FFD7] to-[#BBC863] py-10 px-4 relative">
+    <div className="min-h-screen w-full py-5 md:py-10 px-4 relative">
 
       {/* Logout Button */}
-      <button
-        onClick={handleLogout}
-        className="absolute top-4 right-6 bg-red-500 hover:bg-red-600 text-white px-4 py-2 rounded-lg shadow-md font-semibold"
-      >
-        Logout
-      </button>
+      
+        <button
+          onClick={handleLogout}
+          className="absolute top-4 right-4 text-sm bg-red-600 md:right-6 text-white px-4 py-2 rounded-lg  font-semibold"
+        >
+          Log Out
+        </button>
 
-      <div className="bg-white shadow-lg rounded-2xl p-8 w-full max-w-3xl mx-auto">
-        <div className="flex items-center gap-6">
-          <img
-            src={user.photoURL}
-            alt="User"
-            className="w-24 h-24 rounded-full border-4 border-green-400 shadow"
-          />
-          <div>
-            <h1 className="text-2xl font-bold">{user.displayName}</h1>
-            <p className="text-gray-600">{user.email}</p>
+          <div className="flex pt-10 flex-col justify-center  items-center gap-6">
+            <img
+              src={user.photoURL}
+              alt="User"
+              className="size-16 md:size-20 rounded-full border-4 border-green-400 shadow"
+            />
+            <div>
+              <h1 className="text-md font-semibold text-center md:text-2xl md:font-bold">{user.displayName}</h1>
+              <p className="text-gray-600 text-[10px] md:text-[15px]">{user.email}</p>
+            </div>
           </div>
-        </div>
+      
+
+        <div className="md:p-8 w-full max-w-3xl mx-auto">
 
         {/* Profile Details */}
-        <div className="mt-6 grid grid-cols-1 sm:grid-cols-2 gap-4">
+        <div className="mt-6 md:mt-2">
+          <div className="flex justify-between items-center mb-5">
+            <h2 className="font-semibold">Personal Info</h2>
+
+            {/* Buttons */}
+            <div className="flex gap-4 ">
+              {!editing ? (
+                <button
+                  onClick={() => setEditing(true)}
+                  className="bg-green-500 flex justify-center items-center size-12 rounded-full text-white "
+                >
+                  <Pencil />
+                </button>
+              ) : (
+                <>
+                  <button
+                    onClick={handleSave}
+                    className="bg-green-500 text-white px-6 py-2 rounded-lg"
+                  >
+                    Save
+                  </button>
+                  <button
+                    onClick={() => setEditing(false)}
+                    className="bg-gray-300 px-6 py-2 rounded-lg"
+                  >
+                    Cancel
+                  </button>
+                </>
+              )}
+            </div>
+          </div>
           {/* Age */}
-          <div>
-            <label className="font-medium">Age</label>
-            <input
-              type="number"
-              disabled={!editing}
-              value={profile.age || ""}
-              onChange={(e) =>
-                setProfile({ ...profile, age: e.target.value })
-              }
-              className="w-full mt-1 p-2 border rounded-lg"
-            />
-          </div>
+          <div className="grid grid-cols-2 gap-5">
+            <div className="border-y-2 border-gray-200 p-3">
+              <label className="font-medium">Age</label>
+              <input
+                type="number"
+                disabled={!editing}
+                value={profile.age || ""}
+                onChange={(e) =>
+                  setProfile({ ...profile, age: e.target.value })
+                }
+                className="w-full mt-1 p-2 rounded-lg"
+              />
+            </div>
 
-          {/* Height */}
-          <div>
-            <label className="font-medium">Height (cm)</label>
-            <input
-              type="number"
-              disabled={!editing}
-              value={profile.height || ""}
-              onChange={(e) =>
-                setProfile({ ...profile, height: e.target.value })
-              }
-              className="w-full mt-1 p-2 border rounded-lg"
-            />
-          </div>
+            {/* Height */}
+            <div className="border-y-2 border-gray-200 p-3">
+              <label className="font-medium">Height (cm)</label>
+              <input
+                type="number"
+                disabled={!editing}
+                value={profile.height || ""}
+                onChange={(e) =>
+                  setProfile({ ...profile, height: e.target.value })
+                }
+                className="w-full mt-1 p-2"
+              />
+            </div>
 
-          {/* Weight */}
-          <div>
-            <label className="font-medium">Weight (kg)</label>
-            <input
-              type="number"
-              disabled={!editing}
-              value={profile.weight || ""}
-              onChange={(e) =>
-                setProfile({ ...profile, weight: e.target.value })
-              }
-              className="w-full mt-1 p-2 border rounded-lg"
-            />
-          </div>
+            {/* Weight */}
+            <div className="border-y-2 border-gray-200 p-3">
+              <label className="font-medium">Weight (kg)</label>
+              <input
+                type="number"
+                disabled={!editing}
+                value={profile.weight || ""}
+                onChange={(e) =>
+                  setProfile({ ...profile, weight: e.target.value })
+                }
+                className="w-full mt-1"
+              />
+            </div>
 
-          {/* Gender */}
-          <div>
-            <label className="font-medium">Gender</label>
-            <select
-              disabled={!editing}
-              value={profile.gender || ""}
-              onChange={(e) =>
-                setProfile({ ...profile, gender: e.target.value })
-              }
-              className="w-full mt-1 p-2 border rounded-lg"
-            >
-              <option value="">Select</option>
-              <option value="male">Male</option>
-              <option value="female">Female</option>
-              <option value="other">Other</option>
-            </select>
-          </div>
-
-          {/* Goal */}
-          <div>
-            <label className="font-medium">Goal</label>
-            <select
-              disabled={!editing}
-              value={profile.goal || ""}
-              onChange={(e) =>
-                setProfile({ ...profile, goal: e.target.value })
-              }
-              className="w-full mt-1 p-2 border rounded-lg"
-            >
-              <option value="">Select</option>
-              <option value="weight_loss">Weight Loss</option>
-              <option value="muscle_gain">Muscle Gain</option>
-              <option value="maintenance">Maintenance</option>
-            </select>
-          </div>
-
-          {/* Activity Level */}
-          <div>
-            <label className="font-medium">Activity Level</label>
-            <select
-              disabled={!editing}
-              value={profile.activityLevel || ""}
-              onChange={(e) =>
-                setProfile({ ...profile, activityLevel: e.target.value })
-              }
-              className="w-full mt-1 p-2 border rounded-lg"
-            >
-              <option value="">Select</option>
-              <option value="sedentary">Sedentary</option>
-              <option value="light">Light</option>
-              <option value="moderate">Moderate</option>
-              <option value="active">Active</option>
-            </select>
-          </div>
-        </div>
-
-        {/* Buttons */}
-        <div className="mt-6 flex gap-4">
-          {!editing ? (
-            <button
-              onClick={() => setEditing(true)}
-              className="bg-green-500 text-white px-6 py-2 rounded-lg"
-            >
-              Edit
-            </button>
-          ) : (
-            <>
-              <button
-                onClick={handleSave}
-                className="bg-green-500 text-white px-6 py-2 rounded-lg"
+            {/* Gender */}
+            <div className="border-y-2 border-gray-200 p-3">
+              <label className="font-medium">Gender</label>
+              <select
+                disabled={!editing}
+                value={profile.gender || ""}
+                onChange={(e) =>
+                  setProfile({ ...profile, gender: e.target.value })
+                }
+                className="w-full mt-1 p-2"
               >
-                Save
-              </button>
-              <button
-                onClick={() => setEditing(false)}
-                className="bg-gray-300 px-6 py-2 rounded-lg"
+                <option value="">Select</option>
+                <option value="male">Male</option>
+                <option value="female">Female</option>
+                <option value="other">Other</option>
+              </select>
+            </div>
+
+            {/* Goal */}
+            <div className="border-y-2 border-gray-200 p-3">
+              <label className="font-medium">Goal</label>
+              <select
+                disabled={!editing}
+                value={profile.goal || ""}
+                onChange={(e) =>
+                  setProfile({ ...profile, goal: e.target.value })
+                }
+                className="w-full mt-1"
               >
-                Cancel
-              </button>
-            </>
-          )}
+                <option value="">Select</option>
+                <option value="weight_loss">Weight Loss</option>
+                <option value="muscle_gain">Muscle Gain</option>
+                <option value="maintenance">Maintenance</option>
+              </select>
+            </div>
+
+            {/* Activity Level */}
+            <div className="border-y-2 border-gray-200 p-3">
+              <label className="font-medium">Activity Level</label>
+              <select
+                disabled={!editing}
+                value={profile.activityLevel || ""}
+                onChange={(e) =>
+                  setProfile({ ...profile, activityLevel: e.target.value })
+                }
+                className="w-full mt-1 p-2 "
+              >
+                <option value="">Select</option>
+                <option value="sedentary">Sedentary</option>
+                <option value="light">Light</option>
+                <option value="moderate">Moderate</option>
+                <option value="active">Active</option>
+              </select>
+            </div>
+          </div>
+
         </div>
       </div>
     </div>

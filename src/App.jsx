@@ -72,14 +72,13 @@ export default function App() {
 
   return (
     <Router>
-      <div className="">
-      <div className="flex">
+      
+      {/* <div className="flex flex-col md:flex-row">  */}
         {/* Sidebar */}
-        <div className="fixed ">
           <Sidebar />
-        </div>
+         
         {/* Main Content */}
-        <div className="flex-1   ml-55">
+        <div className="  md:flex-1   md:ml-55">
              <AuthWatcher
             setUser={setUser}
             setAuthLoading={setAuthLoading}
@@ -127,8 +126,8 @@ export default function App() {
           </Routes>
 
         </div>
-      </div>
-      </div>
+      {/* </div> */}
+
     </Router>
   );
 }
