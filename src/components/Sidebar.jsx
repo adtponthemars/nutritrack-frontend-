@@ -24,7 +24,7 @@ const Sidebar = () => {
   return (
     <>
      {/* FOR MOBILE SCREEN  */}
-      <div className="w-full flex justify-around py-4  bg-[#276F27] fixed bottom-0 md:hidden ">
+      <div className="w-full mt-2 flex justify-around py-4  bg-[#276F27] fixed bottom-0 md:hidden z-50 ">
         {menuItems.map((item, index) => (
           <Link key={index} to={item.path} className="">
             <div className="text-white text-2xl font-semibold">{item.icon}</div>

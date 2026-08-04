@@ -64,7 +64,7 @@ const Dashboard = ({ user }) => {
   };
 
   return (
-    <div className="max-w-full h-screen bg-gradient-to-br from-[#E8FFD7] to-[#BBC863] py-5 px-5 md:px-12 lg:px-16">
+    <div className="max-w-full h-screen  py-5 px-5 md:px-12 lg:px-16">
       {/* HEADER  */}
       <div className="flex justify-between items-center ">
         <h1>Dashboard</h1>
@@ -90,7 +90,7 @@ const Dashboard = ({ user }) => {
                 </p>
               </div>
 
-              <div className="w-full bg-white rounded-full h-5 overflow-hidden">
+              <div className="w-full bg-gray-200 rounded-full h-5 overflow-hidden">
                 <div
                   className="h-5  rounded-full transition-all duration-300"
                   style={{ width: `${getPercent(nutrient.consumed, nutrient.required)}%` }}

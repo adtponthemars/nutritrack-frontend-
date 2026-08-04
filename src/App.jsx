@@ -78,7 +78,7 @@ export default function App() {
           <Sidebar />
          
         {/* Main Content */}
-        <div className="  md:flex-1   md:ml-55">
+        <div className=" py-2 md:flex-1 md:ml-55">
              <AuthWatcher
             setUser={setUser}
             setAuthLoading={setAuthLoading}
